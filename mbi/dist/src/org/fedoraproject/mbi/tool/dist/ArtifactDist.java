@@ -186,6 +186,7 @@ class Director
             ModuleVisitor mv = cw.visitModule( art.mid, 0, version );
             exports.forEach( pkg -> mv.visitPackage( pkg ) );
             exports.forEach( pkg -> mv.visitExport( pkg, 0, (String[]) null ) );
+            mv.visitRequire( "java.base", Opcodes.ACC_MANDATED, null );
             requires.forEach( depArt -> mv.visitRequire( depArt.mid, 0, null ) );
             mv.visitEnd();
             cw.visitEnd();
