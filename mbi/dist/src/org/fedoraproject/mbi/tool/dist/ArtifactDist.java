@@ -102,15 +102,12 @@ class UArt
 
     final List<GA> deps = new ArrayList<>();
 
-    final String mid0;
-
     final String mid;
 
     public UArt( String gid, String aid, String mid )
     {
         super( gid, aid );
-        this.mid0 = mid;
-        this.mid = mid != null ? mid : "mbi.module." + aid.replace( '-', '.' );
+        this.mid = mid;
     }
 }
 
@@ -175,7 +172,7 @@ class Director
                     .collect( Collectors.toUnmodifiableSet() );
     }
 
-    private void writeModuleInfo( Path modinfoPath, UArt art, String version, Iterable<UArt> requires,
+    private void writeModuleInfo( Path modinfoPath, String modName, String modVersion, Iterable<UArt> requires,
                                   Iterable<String> exports )
         throws IOException
     {
@@ -183,7 +180,7 @@ class Director
         {
             ClassWriter cw = new ClassWriter( 0 );
             cw.visit( Opcodes.V9, Opcodes.ACC_MODULE, "module-info", null, null, null );
-            ModuleVisitor mv = cw.visitModule( art.mid, 0, version );
+            ModuleVisitor mv = cw.visitModule( modName, 0, modVersion );
             exports.forEach( pkg -> mv.visitPackage( pkg ) );
             exports.forEach( pkg -> mv.visitExport( pkg, 0, (String[]) null ) );
             mv.visitRequire( "java.base", Opcodes.ACC_MANDATED, null );
@@ -229,7 +226,7 @@ class Director
         {
             Set<String> packages = listPackages( reactor.getClassesDir( module ) );
             Path modinfoPath = modinfosDir.resolve( aid + ".class" );
-            writeModuleInfo( modinfoPath, art, version, deps, packages );
+            writeModuleInfo( modinfoPath, art.mid, version, deps, packages );
             Path jarPath = artifactsDir.resolve( aid + ".jar" );
             JarArchiver archiver = new JarArchiver();
             archiver.setFilesetmanifest( FilesetManifestConfig.merge );
@@ -343,7 +340,7 @@ public class ArtifactDist
                     mods.add( mod );
                     break;
                 case "ART":
-                    uart = new UArt( line[1], line[2], line.length > 3 ? line[3] : null );
+                    uart = new UArt( line[1], line[2], line[3] );
                     mod.artifacts.add( uart );
                     break;
                 case "ALIAS":
@@ -398,7 +395,7 @@ public class ArtifactDist
             pw.printf( "MOD %s%n", mod.md.getName() );
             for ( var umd : mod.artifacts )
             {
-                pw.printf( "  ART %s %s%s%n", umd.gid, umd.aid, umd.mid0 == null ? "" : " " + umd.mid0 );
+                pw.printf( "  ART %s %s %s%n", umd.gid, umd.aid, umd.mid );
                 for ( var ua : umd.aliases )
                 {
                     pw.printf( "    ALIAS %s %s%s%n", ua.gid, ua.aid,
