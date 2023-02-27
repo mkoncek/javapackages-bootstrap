@@ -14,7 +14,7 @@ MOD ant
     ALIAS ant ant
     DEP org.apache.ant ant-launcher
 MOD apiguardian
-  ART org.apiguardian apiguardian-api apiguardian.api
+  ART org.apiguardian apiguardian-api org.apiguardian.api
 MOD asm
   ART org.ow2.asm asm asm
 MOD asm-analysis
@@ -35,7 +35,7 @@ MOD asm-util
     DEP org.ow2.asm asm-analysis
     DEP org.ow2.asm asm-tree
 MOD assertj-core
-  ART org.assertj assertj-core assertj.core
+  ART org.assertj assertj-core org.assertj.core
     DEP net.bytebuddy byte-buddy
 MOD bnd
   ART biz.aQute.bnd aQute.libg aQute.libg
@@ -62,7 +62,7 @@ MOD build-helper-maven-plugin
     DEP org.apache.maven.shared file-management
 MOD byte-buddy
   ART net.bytebuddy byte-buddy-agent byte.buddy.agent
-  ART net.bytebuddy byte-buddy byte.buddy
+  ART net.bytebuddy byte-buddy net.bytebuddy
     ALIAS net.bytebuddy byte-buddy-dep
     DEP org.ow2.asm asm
     DEP org.ow2.asm asm-commons
@@ -148,7 +148,7 @@ MOD guice
     DEP javax.inject javax.inject
     DEP com.google.guava guava
 MOD hamcrest
-  ART org.hamcrest hamcrest-core hamcrest.core
+  ART org.hamcrest hamcrest-core org.hamcrest
     ALIAS org.hamcrest hamcrest
     ALIAS org.hamcrest hamcrest-all
     ALIAS org.hamcrest hamcrest-library
@@ -181,7 +181,7 @@ MOD junit4
   ART junit junit junit
     DEP org.hamcrest hamcrest-core
 MOD junit5-jupiter
-  ART org.junit.jupiter junit-jupiter-api junit.jupiter.api
+  ART org.junit.jupiter junit-jupiter-api org.junit.jupiter.api
     DEP org.opentest4j opentest4j
     DEP org.junit.platform junit-platform-commons
   ART org.junit.jupiter junit-jupiter-params junit.jupiter.params
@@ -795,7 +795,7 @@ MOD munge-maven-plugin
 MOD objenesis
   ART org.objenesis objenesis objenesis
 MOD opentest4j
-  ART org.opentest4j opentest4j opentest4j
+  ART org.opentest4j opentest4j org.opentest4j
 MOD osgi-annotation
   ART org.osgi osgi.annotation osgi.annotation
     ALIAS org.osgi org.osgi.annotation
@@ -867,7 +867,7 @@ MOD plexus-utils
   ART org.codehaus.plexus plexus-utils plexus.utils
     ALIAS plexus plexus-utils
 MOD qdox
-  ART com.thoughtworks.qdox qdox qdox
+  ART com.thoughtworks.qdox qdox com.thoughtworks.qdox
     ALIAS qdox qdox
 MOD servlet-api
   ART javax.servlet javax.servlet-api javax.servlet.api
